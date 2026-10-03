@@ -1,0 +1,288 @@
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #faf8f4;
+  --surface: #ffffff;
+  --text: #22201c;
+  --muted: #6b665d;
+  --accent: #8a5a2b;
+  --border: #e4dfd5;
+  --tag-bg: #f1ebe0;
+  --banner-text: #ffffff;
+  --banner-overlay: rgba(0, 0, 0, 0.4);
+  --font-body: Georgia, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+
+/* Set by the toggle (main.js) */
+:root[data-theme="dark"] {
+  --bg: #1a1815;
+  --surface: #23201c;
+  --text: #e9e4da;
+  --muted: #a59e91;
+  --accent: #d39a5f;
+  --border: #3a352e;
+  --tag-bg: #2f2b25;
+  --banner-overlay: rgba(0, 0, 0, 0.55);
+  color-scheme: dark;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+a { color: var(--accent); }
+a:hover { text-decoration: none; }
+
+/* ---------- Banner ---------- */
+/* Banner image: drop your photo into pictures/ as banner.jpg (or change the
+   filename below). It always fills the banner and scales with the window. */
+.banner {
+  aspect-ratio: 3855 / 794;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  color: var(--banner-text);
+  background:
+    linear-gradient(var(--banner-overlay), var(--banner-overlay)),
+    url("pictures/banner.jpg") center / cover no-repeat;
+}
+.banner h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+.banner h1 a { color: inherit; text-decoration: none; }
+
+/* ---------- Tabs ---------- */
+.tabs {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.tabs ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+.tabs a {
+  display: block;
+  padding: 0.9rem 1.25rem;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+.tabs a:hover { color: var(--text); }
+.tabs a[aria-current="page"] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+.theme-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+
+@media (max-width: 600px) {
+  .tabs a { padding: 0.9rem 0.75rem; }
+  .theme-toggle { right: 0.5rem; }
+  .tabs ul { justify-content: flex-start; padding-left: 0.5rem; }
+}
+
+/* ---------- Centered text column ---------- */
+/* Fills the window, but never wider than half the screen. */
+.content {
+  width: 100%;
+  max-width: 50vw;
+  margin: 0 auto;
+  padding: 2.5rem 0 4rem;
+}
+
+/* On narrow screens, half the screen is too cramped — use full width with gutters. */
+@media (max-width: 900px) {
+  .content {
+    max-width: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.content h2 { margin-top: 0; }
+
+/* ---------- Meta + tags ---------- */
+.meta {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.meta a { color: inherit; }
+.meta a:hover { color: var(--accent); }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+.tag {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  color: var(--muted);
+  text-decoration: none;
+}
+.tag::before { content: "#"; opacity: 0.6; }
+.tag:hover, .tag.active { background: var(--accent); color: var(--bg); }
+
+/* ---------- Post list (Home) ---------- */
+.post-list { list-style: none; padding: 0; margin: 0; }
+.post-list li {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.post-list li:last-child { border-bottom: none; }
+.post-list h3 { margin: 0 0 0.25rem; font-size: 1.35rem; }
+.post-list h3 a { color: var(--text); text-decoration: none; }
+.post-list h3 a:hover { color: var(--accent); }
+.post-list p { margin: 0.4rem 0 0; color: var(--muted); }
+
+/* ---------- Archive ---------- */
+.tag-filter {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.all-tags { margin-bottom: 1.5rem; }
+
+.archive h3 {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin: 2rem 0 0.5rem;
+}
+.archive ul { list-style: none; padding: 0; margin: 0; }
+.archive li {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0.6rem 0;
+}
+.archive li > time {
+  flex: 0 0 4.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-top: 0.2rem;
+}
+.archive li .entry > a { color: var(--text); text-decoration: none; }
+.archive li .entry > a:hover { color: var(--accent); }
+.archive li .tags { margin-top: 0.2rem; }
+
+/* ---------- About: author blocks ---------- */
+.authors {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+@media (max-width: 900px) {
+  .authors { grid-template-columns: 1fr; }
+}
+.author {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-align: center;
+  scroll-margin-top: 4rem;
+}
+.author:target { border-color: var(--accent); }
+.avatar {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  background: var(--tag-bg);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 1.5rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.author h3 { margin: 0; font-size: 1.15rem; }
+.author .role {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0.15rem 0 0.75rem;
+}
+.author p { font-size: 0.95rem; margin: 0 0 0.75rem; }
+.author .links { font-family: var(--font-ui); font-size: 0.85rem; }
+
+/* ---------- Single post ---------- */
+article header { margin-bottom: 2rem; }
+article h2 { font-size: 2rem; line-height: 1.25; margin-bottom: 0.25rem; }
+article img { max-width: 100%; height: auto; }
+article pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+article blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+}
+
+.more { font-family: var(--font-ui); font-size: 0.95rem; }
+
+/* ---------- Footer ---------- */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
