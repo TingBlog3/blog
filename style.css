@@ -47,7 +47,7 @@ a:hover { text-decoration: none; }
 /* Banner image: drop your photo into pictures/ as banner.jpg (or change the
    filename below). It always fills the banner and scales with the window. */
 .banner {
-  aspect-ratio: 3855 / 794;
+  min-height: clamp(120px, 18vw, 260px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -247,15 +247,8 @@ a:hover { text-decoration: none; }
   overflow: hidden;
 }
 .avatar img { width: 100%; height: 100%; object-fit: cover; }
-.author h3 { margin: 0; font-size: 1.15rem; }
-.author .role {
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin: 0.15rem 0 0.75rem;
-}
-.author p { font-size: 0.95rem; margin: 0 0 0.75rem; }
-.author .links { font-family: var(--font-ui); font-size: 0.85rem; }
+.author h3 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+.author p { font-size: 0.95rem; margin: 0; }
 
 /* ---------- Single post ---------- */
 article header { margin-bottom: 2rem; }
